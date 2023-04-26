@@ -3,8 +3,8 @@ package tdtu.edu.vn.finalproject.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tdtu.edu.midterm2.model.Category;
-import tdtu.edu.midterm2.repository.CategoryRepository;
+import tdtu.edu.vn.finalproject.Model.Category;
+import tdtu.edu.vn.finalproject.Repository.CategoryRepository;
 
 import java.util.List;
 import java.util.Optional;

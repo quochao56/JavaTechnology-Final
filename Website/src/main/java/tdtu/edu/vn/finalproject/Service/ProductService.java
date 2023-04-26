@@ -1,7 +1,7 @@
 package tdtu.edu.vn.finalproject.Service;
 
 
-import tdtu.edu.midterm2.model.Product;
+import tdtu.edu.vn.finalproject.Model.Product;
 
 import java.util.Collection;
 import java.util.List;

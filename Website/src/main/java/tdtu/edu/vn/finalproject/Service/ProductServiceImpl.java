@@ -3,15 +3,15 @@ package tdtu.edu.vn.finalproject.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tdtu.edu.midterm2.model.Product;
-import tdtu.edu.midterm2.repository.ProductRepository;
+import tdtu.edu.vn.finalproject.Model.Product;
+import tdtu.edu.vn.finalproject.Repository.ProductRepository;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
     @Autowired
     ProductRepository productRepository;
     @Override
@@ -38,6 +38,4 @@ public class ProductServiceImpl implements ProductService{
     public Collection<Product> searchProductByName(String ar) {
         return productRepository.searchByName(ar);
     }
-
-
 }

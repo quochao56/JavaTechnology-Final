@@ -1,8 +1,8 @@
 package tdtu.edu.vn.finalproject.Service;
 
 
-import tdtu.edu.midterm2.model.Category;
-import tdtu.edu.midterm2.model.Product;
+
+import tdtu.edu.vn.finalproject.Model.Category;
 
 import java.util.List;
 import java.util.Optional;

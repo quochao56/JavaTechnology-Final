@@ -3,10 +3,8 @@ package tdtu.edu.vn.finalproject.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tdtu.edu.midterm2.model.Category;
-import tdtu.edu.midterm2.model.Product;
-import tdtu.edu.midterm2.model.ProductCart;
-import tdtu.edu.midterm2.repository.ProductCartRepository;
+import tdtu.edu.vn.finalproject.Model.ProductCart;
+import tdtu.edu.vn.finalproject.Repository.ProductCartRepository;
 
 import java.util.Collection;
 import java.util.List;
