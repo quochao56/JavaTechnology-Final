@@ -5,7 +5,7 @@ package tdtu.edu.vn.finalproject.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import tdtu.edu.midterm2.model.Product;
+import tdtu.edu.vn.finalproject.Model.Product;
 
 import java.util.Collection;
 
