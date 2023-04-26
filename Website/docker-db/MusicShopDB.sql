@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `album` (
   `albumID` varchar(10) NOT NULL,
   `genreID` varchar(10) DEFAULT NULL,
   `singerID` varchar(10) DEFAULT NULL,
-  `thumnail` blob,
+  `thumbnail` blob,
   `numberOfSongs` int DEFAULT NULL,
   `albumDescription` longtext,
   `price` float DEFAULT NULL,
