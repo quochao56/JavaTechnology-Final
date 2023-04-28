@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,4 +22,12 @@ public class User {
     private String password;
     @Column(name = "Role")
     private String role;
+
+    @Builder
+    public User(String userID, String password) {
+        this.userID = userID;
+        this.username = userID;
+        this.password = password;
+        this.role = "USER";
+    }
 }
