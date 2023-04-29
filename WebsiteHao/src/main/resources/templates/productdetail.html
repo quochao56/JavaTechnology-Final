@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+    <head>
+        <link rel="stylesheet" th:href="@{/css/productStyle.css}">
+    </head>
+    <body>
+        <a th:href="@{/}" style="text-decoration: none"><h1 style="margin-left: 80px; font-weight: bold;">AVHM.</h1></a>
+        <div class = "card-wrapper">
+            <div class = "card">
+              <!-- card left -->
+              <div class = "product-imgs" th:object="${product}">
+                <img  th:src="@{${'/image/' + product.image}}" alt = "shoe image">
+              </div>
+              <!-- card right -->
+              <div class = "product-content">
+                <h2 class = "product-title" th:text="${product.name}">nike shoes</h2>
+                <div class = "product-price">
+                  <p class = "new-price" th:text="${product.price} + '$'">Price: <span>$249.00</span></p>
+                </div>
+                <div class = "product-detail">
+                    <h2>about this item: </h2>
+                    <p th:text="${product.description}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo eveniet veniam
+                        tempora fuga tenetur placeat sapiente architecto illum soluta consequuntur,
+                        aspernatur quidem at sequi ipsa!</p>
+                  <ul>
+                    <li>Artist: <span th:text="${product.artist}">Black</span></li>
+                    <li>Quantity: <span>in stock</span></li>
+                    <li>Category: <span th:text="${product.category.name}">Shoes</span></li>
+                  </ul>
+                </div>
+
+                  <div class = "purchase-info">
+                      <form th:action="@{/home/cart/add/{id}(id=${product.id})}" method="post">
+                          <input type = "number" min = "1" value = "1" name="quantity">
+                          <button type = "submit" class = "btn">
+                              Add to Cart <i class = "fas fa-shopping-cart"></i>
+                          </button>
+                          <a th:href="@{/}">
+                              <button type = "button" class = "btn">Cancel</button>
+                          </a>
+                      </form>
+                  </div>
+
+              </div>
+          
+              </div>
+            </div>
+          </div>
+    </body>
+</html>
