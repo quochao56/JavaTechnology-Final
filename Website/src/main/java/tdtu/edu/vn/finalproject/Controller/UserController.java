@@ -9,12 +9,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import tdtu.edu.vn.finalproject.DTO.RegisterDTO;
 import tdtu.edu.vn.finalproject.Model.User;
+import tdtu.edu.vn.finalproject.Service.MailServices.MailServicesImpl;
 import tdtu.edu.vn.finalproject.Service.UserServices.UserServicesImpl;
 
 @Controller
 public class UserController {
     @Autowired
     UserServicesImpl userServices;
+
+    @Autowired
+    MailServicesImpl mailServices;
 
     @GetMapping("/register")
     public String registerPage() {
@@ -49,6 +53,14 @@ public class UserController {
             userServices.registerUser(user);
         }
 
+        String mailBody = String.format("Dear %s\n" +
+                                                "Thank you for completing your registration with MusicShop\n\n" +
+                                                "This email serves as a confirmation that your account is activated and that you are officially a part of the MusicShop family.\n" +
+                                                "Enjoy!\n" +
+                                                "Regards, \n" +
+                                                "The MusicShop team", email);
+        String subject = "[MusicShop] Welcome to MusicShop";
+        mailServices.sendMail("springmusicshop@gmail.com", email, subject, mailBody);
         return "redirect:/index";
     }
 
