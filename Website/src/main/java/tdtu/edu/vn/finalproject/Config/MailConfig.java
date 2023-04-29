@@ -8,10 +8,15 @@ import io.awspring.cloud.ses.SimpleEmailServiceMailSender;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.mail.MailSender;
 
 @Configuration
+@Primary
 public class MailConfig {
+
+    @Value("${fromMail}")
+    private String fromMail;
     @Value("${cloud.aws.credentials.access-key}")
     private String accessKey;
 
@@ -20,6 +25,10 @@ public class MailConfig {
 
     @Value("${cloud.aws.region.static}")
     private String region;
+
+    public String getFromMail() {
+        return this.fromMail;
+    }
 
     @Bean
     public AmazonSimpleEmailService amazonSimpleEmailService() {

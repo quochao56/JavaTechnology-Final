@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import tdtu.edu.vn.finalproject.Model.User;
 import tdtu.edu.vn.finalproject.Repository.UserRepository;
 
+import java.util.Optional;
+
 @Service
 public class UserServicesImpl implements UserServices {
     @Autowired
@@ -24,5 +26,10 @@ public class UserServicesImpl implements UserServices {
     @Override
     public void registerUser(User user) {
         userRepository.save(user);
+    }
+
+    @Override
+    public Optional<User> getUserInformation(String userID) {
+        return Optional.empty();
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import tdtu.edu.vn.finalproject.Config.Filter.LoginHandler;
 import tdtu.edu.vn.finalproject.Service.UserServices.CustomUserDetailService;
 
 @EnableWebSecurity
@@ -18,7 +19,8 @@ public class SecurityConfig {
             "/js/**", "/images/**", "/favicon.ico",
             "/css/**", "/login", "/register", "/"
     };
-
+    @Autowired
+    LoginHandler successHandler;
     @Autowired
     private CustomUserDetailService userService;
 
@@ -41,9 +43,13 @@ public class SecurityConfig {
                 .loginPage("/login")
                 .loginProcessingUrl("/j_spring_security_check")
                 .defaultSuccessUrl("/", true)
+                .successHandler(successHandler)
                 .failureUrl("/login?fail=true")
                 .and()
-                .logout().permitAll();
+                .logout().deleteCookies("JSESSIONID")
+                .and()
+                .rememberMe().key("uniqueAndSecret")
+                .tokenValiditySeconds(60);
         return http.build();
     }
 
