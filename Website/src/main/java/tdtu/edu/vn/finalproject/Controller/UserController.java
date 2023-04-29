@@ -12,7 +12,7 @@ import tdtu.edu.vn.finalproject.Model.User;
 import tdtu.edu.vn.finalproject.Service.UserServices.UserServicesImpl;
 
 @Controller
-public class RegisterController {
+public class UserController {
     @Autowired
     UserServicesImpl userServices;
 
@@ -50,5 +50,10 @@ public class RegisterController {
         }
 
         return "redirect:/index";
+    }
+
+    @GetMapping("/login")
+    public String loginPage() {
+        return "signin";
     }
 }
