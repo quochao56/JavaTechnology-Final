@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up Form</title>
+  <link rel="stylesheet" href="https://codepen.io/gymratpacks/pen/VKzBEp#0">
+  <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" th:href="@{/css/styleEdit.css}">
+</head>
+<body>
+<div class="row">
+  <div class="col-md-12">
+    <!--/*@thymesVar id="receipt" type=""*/-->
+    <!--/*@thymesVar id="receiptID" type=""*/-->
+    <form th:action="@{/admin/editOrder/{id}(id=${user.receiptID})}" th:object = "${user}" method="Post" >
+      <h1> [[${pageTitle}]] </h1>
+
+      <fieldset>
+
+        <legend><span th:text="${user.receiptID}"></span></legend>
+
+        <label for="receiptID">Receipt ID:</label>
+        <input type="text" id="receiptID" name="receipt_id"  th:field = "*{receiptID}">
+
+        <label for="userID">User ID:</label>
+        <input type="text" id="userID" name="user_id"  th:field = "*{userID}">
+
+        <label for="date">Date:</label>
+        <input type="text" id="date"   name="receipt_date"  th:field = "*{dateEstablished}">
+
+        <label for="state">State:</label>
+        <input type="text" id="state"   name="receipt_state"  th:field = "*{state}">
+
+        <label for="total">Total:</label>
+        <input type="text" id="total"   name="receipt_total"  th:field = "*{total}">
+
+
+      </fieldset>
+
+
+      <button type="submit">SAVE</button>
+
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
