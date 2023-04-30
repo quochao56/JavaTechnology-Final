@@ -1,5 +1,6 @@
 package tdtu.edu.vn.finalproject.Controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -7,14 +8,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 import tdtu.edu.vn.finalproject.DTO.RegisterDTO;
 import tdtu.edu.vn.finalproject.Model.User;
+import tdtu.edu.vn.finalproject.Service.MailServices.MailServicesImpl;
 import tdtu.edu.vn.finalproject.Service.UserServices.UserServicesImpl;
 
 @Controller
 public class UserController {
     @Autowired
     UserServicesImpl userServices;
+
+    @Autowired
+    MailServicesImpl mailServices;
+
+    @Autowired
+    private SpringTemplateEngine templateEngine;
 
     @GetMapping("/register")
     public String registerPage() {
@@ -23,7 +33,7 @@ public class UserController {
 
     @PreAuthorize("permitAll()")
     @PostMapping("/register")
-    public String register(Model model, RegisterDTO registerDTO) {
+    public String register(Model model, RegisterDTO registerDTO, HttpServletResponse response) {
         String email = registerDTO.getEmail();
         String password = registerDTO.getPassword();
         String confirmPassword = registerDTO.getConfirmPassword();
@@ -49,7 +59,12 @@ public class UserController {
             userServices.registerUser(user);
         }
 
-        return "redirect:/index";
+        Context context = new Context();
+        context.setVariable("name", email.replace("@gmail.com", ""));
+        String mailContent = templateEngine.process("thank-you-register", context);
+        String subject = "[MusicShop] Welcome to MusicShop";
+        mailServices.sendEmailEmbedEmail(email, subject, mailContent);
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
