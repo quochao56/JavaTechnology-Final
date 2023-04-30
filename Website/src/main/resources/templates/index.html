@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+      <link href="https://fonts.googleapis.com/css?family=Kanit:200,400" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+      <link rel="stylesheet" th:href="@{/css/style.css}">
+      <script type="text/javascript" src="https://kit.fontawesome.com/3b1ca000cb.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class='header'>
+            <div class='title'>
+              <a th:href="@{/}"><h4>The Minimalist</h4></a>
+            </div>
+            <div class="login_header">
+              <a style="font-weight: bold" th:href="@{/login}">Log in</a>
+            </div>
+          </div>
+          <div class='body'>
+          
+          <div class="container-fluid">
+            <div class="row" id="search">
+              <form id="search-form" th:action="@{/home/search}" method="POST" enctype="multipart/form-data">
+                <div class="form-group col-xs-9 search_input">
+                  <input class="form-control" type="text" placeholder="Search" name="nameofalbum"/>
+                </div>
+                <div class="cart__header__desktop">
+                  <a th:href="@{/home/cart}"><i class="fas fa-shopping-cart"></i></a>
+                </div>
+                
+                <div class="filter_input">
+                  <div class="form-group col-sm-2 col-xs-2">
+                    <select data-filter="make" class="filter-make filter form-control" name="genreoption">
+                      <option value="all">All</option>
+                      <option th:each="genre: ${genres}" th:value="${genre.genreName}" th:text="${genre.genreName}">Show All</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-sm-2 col-xs-2 ">
+                    <select data-filter="model" class="filter-model filter form-control" name="singeroption">
+                      <option value="all">All</option>
+                      <option th:each="singer: ${singers}" th:value="${singer.singerName}" th:text="${singer.singerName}">Show All</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-sm-2 col-xs-2">
+                    <input class="form-control" type="number" min="0" placeholder="Price" name="pricealbum"/>
+                    <!-- <select data-filter="type" class="filter-type filter form-control">
+                      <option value="">Select Type</option>
+                      <option value="">Show All</option>
+                    </select> -->
+                  </div>
+                </div>
+                
+                <div class="form-group col-xs-3">
+                  <button type="submit" class="btn btn-block btn-primary">Search</button>
+                </div>
+              </form>
+            </div>
+            </div>
+
+
+            <div class='albumproduct'>
+              <div class='card' th:each="album: ${albums}">
+                <div class='card-content'>
+                  <div class='top-bar'>
+                    <span th:text="${album.price}">
+                      $12.95
+                    </span>
+                    <span class='float-right lnr lnr-heart'></span>
+                  </div>
+                  <div class='img'>
+                    <img th:src="@{${'data:image/png;base64, '+album.thumbnail}}">
+                  </div>
+                </div>
+                <div class='card-description'>
+                  <div class='title' th:text="${album.name}">
+                    BEATS HEADPHONE
+                  </div>
+                  <div class='cart'>
+                    <a th:href="@{/home/product/detail/{id}(id=${album.albumID})}"><span class='lnr lnr-cart'></span></a>
+                  </div>
+                </div>
+                <div class='card-footer'>
+                  <div class='span' th:text="${album.genre.genreName}">
+                    RED
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>    
+
+          </div>
+        
+                  
+    </body>
+</html>
