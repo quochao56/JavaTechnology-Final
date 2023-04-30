@@ -32,4 +32,9 @@ public class UserServicesImpl implements UserServices {
     public Optional<User> getUserInformation(String userID) {
         return Optional.empty();
     }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return userRepository.getUserByUsername(username).orElse(null);
+    }
 }

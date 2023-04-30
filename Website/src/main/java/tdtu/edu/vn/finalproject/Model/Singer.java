@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table
+@Table(name = "singer")
 public class Singer {
     @Id
     private String singerID;
     private String singerName;
-    private String singDescription;
+    private String singerDescription;
 }

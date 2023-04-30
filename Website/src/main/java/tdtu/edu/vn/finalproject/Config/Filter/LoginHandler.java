@@ -17,8 +17,10 @@ public class LoginHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        System.out.println(request.getParameter("username"));
-        request.getSession().setAttribute("username", request.getParameter("username"));
+        String role = authentication.getAuthorities().toString().replace("[", "").replace("]", "");
+        System.out.println(role);
+        request.getSession().setAttribute("username", request.getParameter("username").replace("@gmail.com", ""));
+        request.getSession().setAttribute("role", role);
         redirectStrategy.sendRedirect(request, response, "/");
     }
 }

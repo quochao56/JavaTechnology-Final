@@ -26,6 +26,7 @@ public class UserController {
     @Autowired
     private SpringTemplateEngine templateEngine;
 
+    @PreAuthorize("permitAll()")
     @GetMapping("/register")
     public String registerPage() {
         return "signup";
@@ -55,6 +56,7 @@ public class UserController {
             String hashPassword = encoder.encode(password);
             User user = User.builder().userID(email)
                             .password(hashPassword)
+                            .role("USER")
                             .build();
             userServices.registerUser(user);
         }

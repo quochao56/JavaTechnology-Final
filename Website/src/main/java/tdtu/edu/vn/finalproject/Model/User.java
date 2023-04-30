@@ -20,14 +20,14 @@ public class User {
     private String username;
     @Column(name = "pwd")
     private String password;
-    @Column(name = "Role")
+    @Column(name = "ROLE")
     private String role;
 
     @Builder
-    public User(String userID, String password) {
+    public User(String userID, String password, String role) {
         this.userID = userID;
         this.username = userID;
         this.password = password;
-        this.role = "USER";
+        this.role = role;
     }
 }

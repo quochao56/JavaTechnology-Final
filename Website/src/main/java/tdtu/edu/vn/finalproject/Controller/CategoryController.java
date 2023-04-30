@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import tdtu.edu.vn.finalproject.Model.Category;
-import tdtu.edu.vn.finalproject.Repository.CategoryRepository;
-import tdtu.edu.vn.finalproject.Service.CategoryServiceImpl;
+import tdtu.edu.vn.finalproject.Service.CategoryServices.CategoryServiceImpl;
 
 import java.util.Optional;
 
@@ -17,38 +16,40 @@ import java.util.Optional;
 public class CategoryController {
     @Autowired
     CategoryServiceImpl categoryService;
+
     @GetMapping("/admin/category/list")
-    public String getCategory(Model model){
+    public String getCategory(Model model) {
         model.addAttribute("categories", categoryService.getAllCategory());
         return "listcategory";
     }
+
     @GetMapping("/admin/category/add")
-    public String addCategory(Model model){
+    public String addCategory(Model model) {
         model.addAttribute("category", new Category());
         return "addcategory";
     }
+
     @PostMapping("/admin/category/get")
-    public String addCategoryPost(@ModelAttribute("category")Category category){
+    public String addCategoryPost(@ModelAttribute("category") Category category) {
         category.setName(category.getName().toUpperCase());
         categoryService.addCategory(category);
         return "redirect:/admin/category/list";
     }
+
     @GetMapping("/admin/category/delete/{id}")
-    public String deleteCategory(@PathVariable long id){
+    public String deleteCategory(@PathVariable long id) {
         categoryService.removeCategoryById(id);
         return "redirect:/admin/category/list";
     }
+
     @GetMapping("/admin/category/edit/{id}")
-    public String editCategory(@PathVariable long id, Model model){
+    public String editCategory(@PathVariable long id, Model model) {
         Optional<Category> category = categoryService.getCategoryById(id);
-        if(category.isPresent())
-        {
+        if (category.isPresent()) {
             model.addAttribute("category", category.get());
             return "addcategory";
-        }else {
-            return "404";
+        } else {
+            return "error";
         }
-
     }
-
 }

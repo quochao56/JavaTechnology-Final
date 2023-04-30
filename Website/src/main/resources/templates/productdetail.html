@@ -1,50 +1,122 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org/">
-    <head>
-        <link rel="stylesheet" th:href="@{/css/productStyle.css}">
-    </head>
-    <body>
-        <a th:href="@{/}" style="text-decoration: none"><h1 style="margin-left: 80px; font-weight: bold;">AVHM.</h1></a>
-        <div class = "card-wrapper">
-            <div class = "card">
-              <!-- card left -->
-              <div class = "product-imgs" th:object="${product}">
-                <img  th:src="@{${'/image/' + product.image}}" alt = "shoe image">
-              </div>
-              <!-- card right -->
-              <div class = "product-content">
-                <h2 class = "product-title" th:text="${product.name}">nike shoes</h2>
-                <div class = "product-price">
-                  <p class = "new-price" th:text="${product.price} + '$'">Price: <span>$249.00</span></p>
-                </div>
-                <div class = "product-detail">
-                    <h2>about this item: </h2>
-                    <p th:text="${product.description}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo eveniet veniam
-                        tempora fuga tenetur placeat sapiente architecto illum soluta consequuntur,
-                        aspernatur quidem at sequi ipsa!</p>
-                  <ul>
-                    <li>Artist: <span th:text="${product.artist}">Black</span></li>
-                    <li>Quantity: <span>in stock</span></li>
-                    <li>Category: <span th:text="${product.category.name}">Shoes</span></li>
-                  </ul>
-                </div>
+<head>
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-                  <div class = "purchase-info">
-                      <form th:action="@{/home/cart/add/{id}(id=${product.id})}" method="post">
-                          <input type = "number" min = "1" value = "1" name="quantity">
-                          <button type = "submit" class = "btn">
-                              Add to Cart <i class = "fas fa-shopping-cart"></i>
-                          </button>
-                          <a th:href="@{/}">
-                              <button type = "button" class = "btn">Cancel</button>
-                          </a>
-                      </form>
-                  </div>
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
 
-              </div>
-          
-              </div>
+    <!-- izi toast -->
+    <script crossorigin="anonymous"
+            integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA=="
+            referrerpolicy="no-referrer"
+            th:src="@{https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js}"></script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css"
+          integrity="sha512-DIW4FkYTOxjCqRt7oS9BFO+nVOwDL4bzukDyDtMO7crjUZhwpyrWBFroq+IqRe6VnJkTpRAS6nhDvf0w+wHmxg=="
+          referrerpolicy="no-referrer" rel="stylesheet"/>
+
+
+    <!-- Libraries Stylesheet -->
+    <link rel="stylesheet" th:href="@{/lib/owlcarousel/assets/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css}"/>
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <!-- Template Stylesheet -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/product-styles.css}">
+    <link rel="stylesheet" th:href="@{/css/productStyle.css}">
+</head>
+<body>
+<div class='header'>
+    <div class='title'>
+        <a th:href="@{/}"><h4>The Minimalist</h4></a>
+    </div>
+    <div class="login_header">
+        <a style="font-weight: bold; margin-right: 10px;" th:href="@{/login}" th:if="${session.username == null}">Log
+            in</a>
+        <div class="nav-item dropdown" th:if="${session.username}">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
+                <img alt="" class="rounded-circle me-lg-2" style="width: 40px; height: 40px;"
+                     th:src="@{/img/user.jpg}">
+                <span class="d-none d-lg-inline-flex" th:text="${session.username}"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                <a class="dropdown-item" href="/admin" th:if="${session.role} == 'ADMIN'">Admin</a>
+                <a class="dropdown-item" href="/home/cart">My cart</a>
+                <a class="dropdown-item" href="/logout">Log Out</a>
             </div>
-          </div>
-    </body>
+        </div>
+    </div>
+</div>
+<div class="card-wrapper">
+    <div class="card">
+        <!-- card left -->
+        <div class="product-imgs" th:object="${album}">
+            <img alt="shoe image" th:src="@{${'data:image/png;base64, '+album.thumbnail}}">
+        </div>
+        <!-- card right -->
+        <div class="product-content">
+            <h2 class="product-title" th:text="${album.name}">nike shoes</h2>
+            <div class="product-price">
+                <p class="new-price" th:text="${album.price} + '$'">Price: <span>$249.00</span></p>
+            </div>
+            <div class="product-detail">
+                <h2>about this item: </h2>
+                <p th:text="${album.albumDescription}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo
+                    eveniet veniam
+                    tempora fuga tenetur placeat sapiente architecto illum soluta consequuntur,
+                    aspernatur quidem at sequi ipsa!</p>
+                <ul>
+                    <li>Artist: <span th:object="${singer}" th:text="${singer.singerName}">Black</span></li>
+                    <li>Quantity: <span>in stock</span></li>
+                    <li>Genre: <span th:object="${genre}" th:text="${genre.genreName}">Shoes</span></li>
+                </ul>
+            </div>
+
+            <div class="purchase-info">
+                <form method="post" th:action="@{/home/cart/add/{id}(id=${album.albumID})}">
+                    <input min="1" name="quantity" type="number" value="1">
+                    <button class="btn" type="submit">
+                        Add to Cart <i class="fas fa-shopping-cart"></i>
+                    </button>
+                    <a th:href="@{/}">
+                        <button class="btn" type="button">Cancel</button>
+                    </a>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/admin/lib/chart/chart.min.js}"></script>
+<script th:src="@{/admin/lib/easing/easing.min.js}"></script>
+<script th:src="@{/admin/lib/waypoints/waypoints.min.js}"></script>
+<script th:src="@{/admin/lib/owlcarousel/owl.carousel.min.js}"></script>
+<script th:src="@{/admin/lib/tempusdominus/js/moment.min.js}"></script>
+<script th:src="@{/admin/lib/tempusdominus/js/moment-timezone.min.js}"></script>
+<script th:src="@{/admin/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js}"></script>
+
+<!-- Template Javascript -->
+<script th:src="@{/js/main.js}"></script>
+<script th:if="${isAddSuccess}" th:inline="javascript">
+    iziToast.show({
+        title: 'Thông báo',
+        message: 'Thêm sản phẩm vào giỏ hàng thành công',
+        position: 'topRight',
+        color: 'green'
+    });
+</script>
+</body>
 </html>

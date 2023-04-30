@@ -12,4 +12,6 @@ public interface UserServices {
     public void registerUser(User user);
 
     public Optional<User> getUserInformation(String userID);
+
+    public User getUserByUsername(String username);
 }

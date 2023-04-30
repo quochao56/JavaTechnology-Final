@@ -107,7 +107,7 @@
 <!-- Template Javascript -->
 <script th:src="@{js/main.js}"></script>
 <!-- display error-->
-<script th:if="${param.fail} == true" th:inline="javascript">
+<script th:if="${param.fail}" th:inline="javascript">
     iziToast.error({
         title: 'Thông báo',
         message: "Sai tài khoản/mật khẩu",

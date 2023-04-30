@@ -9,6 +9,10 @@ public class ReceiptLinePrimaryKey implements Serializable {
     private String receiptID;
     private String albumID;
 
+    public ReceiptLinePrimaryKey() {
+
+    }
+
     public ReceiptLinePrimaryKey(String receiptID, String albumID) {
         this.albumID = albumID;
         this.receiptID = receiptID;

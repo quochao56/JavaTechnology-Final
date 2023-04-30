@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up Form</title>
+  <link rel="stylesheet" href="https://codepen.io/gymratpacks/pen/VKzBEp#0">
+  <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" th:href="@{/css/styleEdit.css}">
+</head>
+<body>
+<div class="row">
+  <div class="col-md-12">
+    <form th:action="@{/admin/edit/{id}(id=${user.userID})}" th:object = "${user}" method="Post" >
+      <h1> [[${pageTitle}]] </h1>
+
+      <fieldset>
+
+        <legend><span th:text="${user.userID}"></span></legend>
+
+        <label for="userId">User ID:</label>
+        <input type="text" id="UserId" name="user_id"  th:field = "*{userID}">
+
+        <label for="userName">User Name:</label>
+        <input type="text" id="userName" name="user_name"  th:field = "*{username}">
+
+        <label for="role">Role:</label>
+        <input type="text" id="role"   name="user_role"  th:field = "*{role}">
+
+
+      </fieldset>
+
+
+      <button type="submit">SAVE</button>
+
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

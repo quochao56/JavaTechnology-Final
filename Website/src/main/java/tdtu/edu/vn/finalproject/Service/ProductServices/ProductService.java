@@ -1,0 +1,20 @@
+package tdtu.edu.vn.finalproject.Service.ProductServices;
+
+
+import tdtu.edu.vn.finalproject.Model.Product;
+
+import java.util.Collection;
+import java.util.Optional;
+
+public interface ProductService {
+    Iterable<Product> getAllProduct();
+
+    Product addProduct(Product product);
+
+    void removeProductById(long id);
+
+    Optional<Product> getProductById(long id);
+
+    Collection<Product> searchProductByName(String ar);
+
+}

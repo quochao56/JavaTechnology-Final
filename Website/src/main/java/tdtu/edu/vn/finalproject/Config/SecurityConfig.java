@@ -17,7 +17,11 @@ import tdtu.edu.vn.finalproject.Service.UserServices.CustomUserDetailService;
 public class SecurityConfig {
     private final String[] NO_AUTH_ENDPOINTS = {
             "/js/**", "/images/**", "/favicon.ico",
-            "/css/**", "/login", "/register", "/"
+            "/css/**", "/login", "/register", "/",
+            "admin/css/**", "admin/lib/**", "admin/js/**", "admin/img/**",
+            "/home/product/detail/**",
+            "/home/search/**",
+            "/products/**"
     };
     @Autowired
     LoginHandler successHandler;
@@ -36,6 +40,7 @@ public class SecurityConfig {
                 .cors().disable()
                 .authorizeHttpRequests(
                         auth -> auth
+                                .requestMatchers("/admin/**").hasAuthority("ADMIN")
                                 .requestMatchers(NO_AUTH_ENDPOINTS).permitAll()
                                 .anyRequest().authenticated()
                 )
